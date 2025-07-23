@@ -6,5 +6,6 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended: true}))
 
-require("./database/pg")
+// require("./database/pg")
+require("./config/check")
 module.exports = app

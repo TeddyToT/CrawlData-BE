@@ -24,9 +24,12 @@
   },
   "homepage": "https://github.com/TeddyToT/CrawlData-BE#readme",
   "dependencies": {
+    "axios": "^1.10.0",
+    "cheerio": "^1.1.2",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "nodemon": "^3.1.10",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "puppeteer": "^24.14.0"
   }
 }
