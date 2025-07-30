@@ -12,8 +12,13 @@ class CategoryModel {
     }
 
     static async findByName({name}){
-        const result = await pool.query('SELECT * FROM CATEGORY WHERE NAME = $1',[name]);
+    const result = await pool.query('SELECT * FROM CATEGORY WHERE NAME = $1',[name]);
     return result.rows[0];
+    }
+
+    static async getAll(){
+        const result = await pool.query('SELECT * FROM CATEGORY')
+        return result.rows
     }
 }
 
