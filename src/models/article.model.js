@@ -1,4 +1,4 @@
-const pool = require("../database/pg")
+const pool = require("../providers/pg")
 
 class ArticleModel {
     static async create({title, url, thumbnail, categoryId, date, author, sapo, img, photoCaption, content}){
@@ -15,13 +15,27 @@ class ArticleModel {
     }
 
 
-    static async findByTitleAndUrl({title, url}){
+    static async findByUrl({url}){
       const result = await pool.query(
         'SELECT title FROM ARTICLE WHERE url = $1',[url]
       )
-      console.log(result.rows);
       return result.rows
     }
+
+    static async getAllArticles(){
+      const result = await pool.query(
+        'SELECT * FROM ARTICLE'
+      )
+      return result.rows
+    }
+
+    static async getArticlesByCategory({categoryId}){
+      const result = await pool.query(
+        'SELECT * FROM ARTICLE WHERE categoryId = $1',[categoryId]
+      )
+      return result.rows
+    }
+
 }
 
 module.exports = ArticleModel

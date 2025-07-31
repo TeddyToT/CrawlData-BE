@@ -1,4 +1,4 @@
-const pool = require("../database/pg")
+const pool = require("../providers/pg")
 
 class CategoryModel {
     static async create({name, url}){
@@ -16,8 +16,13 @@ class CategoryModel {
     return result.rows[0];
     }
 
+    static async findById({id}){
+    const result = await pool.query('SELECT * FROM CATEGORY WHERE ID = $1',[id]);
+    return result.rows;
+    }
+
     static async getAll(){
-        const result = await pool.query('SELECT * FROM CATEGORY')
+        const result = await pool.query("SELECT * FROM CATEGORY")
         return result.rows
     }
 }

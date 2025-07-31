@@ -14,9 +14,35 @@ class ArticleController {
 
     crawlNewAricles = async (req, res, next) => {
         try {
-            const article = await ArticleService.crawlNewArticles()
-            return res.status(201).json({success: true, article})
+            const result = await ArticleService.crawlNewArticles()
+            return res.status(201).json({
+                success: result.success, 
+                articles: result.articles})
         } catch (error) {
+            next(error)
+        }
+    }
+
+    getAllArticles = async (req, res, next) => {
+        try {
+            const articles = await ArticleService.getAllArticles()
+            return res.status(200).json({
+                success: true,
+                articles: articles
+            })
+        }catch (error) {
+            next(error)
+        }
+    }
+
+     getArticlesByCategory = async (req, res, next) => {
+        try {
+            const articles = await ArticleService.getArticlesByCategory(req.query)
+            return res.status(200).json({
+                success: true,
+                articles: articles
+            })
+        }catch (error) {
             next(error)
         }
     }
