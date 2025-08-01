@@ -1,6 +1,6 @@
 const app = require("./src/app")
 
-const PORT = 8000
+const PORT = process.env.HOST||8000
 
 const server = app.listen(PORT, () =>{
     console.log(`Crawling Data Server is running on server ${PORT}`);

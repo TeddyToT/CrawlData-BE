@@ -1,13 +1,13 @@
 create table CATEGORY(
-id uuid NOT NULL DEFAULT gen_random_uuid(),
-name varchar(100) not null,
-url text,
-CONSTRAINT pkey_category PRIMARY KEY (id)
+id uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+name varchar(100) NOT NULL,
+url text NOT NULL,
+
 
 )
 
 create table ARTICLE(
-id uuid NOT NULL DEFAULT gen_random_uuid(),
+id uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
 categoryId uuid REFERENCES CATEGORY(id),
 date timestamp,
 title varchar(100),
@@ -18,11 +18,3 @@ photoCaption text,
 content text[]
 
 )
-
-drop table category
-
-delete from category
-
-
-Insert into category(name) VALUES('test') returning *
-select * from category
