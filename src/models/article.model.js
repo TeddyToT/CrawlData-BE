@@ -22,9 +22,16 @@ class ArticleModel {
       return result.rows
     }
 
+    static async findById({id}){
+      const result = await pool.query(
+        'SELECT * FROM ARTICLE WHERE id = $1',[id]
+      )
+      return result.rows
+    }
+
     static async getAllArticles(){
       const result = await pool.query(
-        'SELECT * FROM ARTICLE'
+        'SELECT * FROM ARTICLE order by date desc limit 100' //set limit 100 
       )
       return result.rows
     }

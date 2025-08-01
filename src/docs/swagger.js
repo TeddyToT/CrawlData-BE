@@ -1,6 +1,9 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const path = require("path");
+const dotenv = require("dotenv");
+dotenv.config();
+const HOST = process.env.HOST || 8000
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -12,7 +15,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:8000/",
+        url: `http://localhost:${HOST}/`,
       },
     ],
     components: {

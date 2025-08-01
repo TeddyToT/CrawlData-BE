@@ -46,5 +46,18 @@ class ArticleController {
             next(error)
         }
     }
+
+    getArticleById = async (req, res, next) => {
+        try {
+            const result = await ArticleService.getArticleById(req.query)
+            return res.status(200).json({
+                success: result.success,
+                message: result.message,
+                article: result.article
+            })
+        }catch (error) {
+            next(error)
+        }
+    }
 }
 module.exports = new ArticleController()

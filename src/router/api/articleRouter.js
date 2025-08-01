@@ -5,6 +5,7 @@ const router = express.Router()
 
 router.get('/', ArticleController.getAllArticles)
 router.post('/', ArticleController.addArticle)
+router.get('/id', ArticleController.getArticleById)
 router.get('/category', ArticleController.getArticlesByCategory)
 router.get('/crawl', ArticleController.crawlNewAricles)
 
@@ -91,6 +92,25 @@ module.exports = router
  *         description: Articles in the specified category
  *       404:
  *         description: Category not found
+ */
+/**
+ * @swagger
+ * /api/article/id:
+ *   get:
+ *     summary: Get article by id
+ *     tags: [Articles]
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the article
+ *     responses:
+ *       200:
+ *         description: Article with the specified id
+ *       404:
+ *         description: id not found
  */
 
 /**

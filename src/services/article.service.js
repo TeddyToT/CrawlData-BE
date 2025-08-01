@@ -8,7 +8,7 @@ class ArticleService {
     const checkDuplicate = await ArticleModel.findByUrl({ url });
 
     if (Object.keys(checkDuplicate).length !== 0) {
-      console.log(`Article "${title}" already exists`);
+      // console.log(`Article "${title}" already exists`);
       return { success: false, message: `Article ${title} already exists` };
     }
     console.log(`Crawling Article "${title}"`);
@@ -78,6 +78,13 @@ class ArticleService {
   static async getArticlesByCategory({categoryId}){
         const articles = await ArticleModel.getArticlesByCategory({categoryId})
         return articles;
+  }
+
+    static async getArticleById({id}){
+        const article = await ArticleModel.findById({id})
+        if (article.length === 0)
+          return { success: false, message: "Wrong Id"}
+        return { success: true, article: article};
   }
 
 }
