@@ -5,7 +5,9 @@ const requestLogger = require("./middlewares/requestLogger")
 const errorLogger = require("./middlewares/errorLogger");
 const { swaggerUiMiddleware, swaggerUiHandler } = require("./docs/swagger")
 
-require('dotenv').config()
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+});
 
 app.use(express.json())
 app.use(requestLogger)
