@@ -41,7 +41,7 @@ async function startCrawlingJob() {
     try {
       isCrawling = true;
       await ArticleService.crawlNewArticles();
-      console.log("Crawl done, restarted in 30 minutes");
+      console.log("Crawl done. Next crawl in 30 minutes");
     } catch (err) {
       const msg = `Error during scheduled crawl: ${err.message}`;
       console.error(msg);

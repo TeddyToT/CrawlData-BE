@@ -1,12 +1,13 @@
 const pool = require("../providers/pg")
-
+const toSlug = require("../utils/slug")
 class CategoryModel {
     static async create({name, url}){
+        const slug = toSlug(name)
         const result = await pool.query(
-      `INSERT INTO CATEGORY (name, url)
-       VALUES ($1, $2)
+      `INSERT INTO CATEGORY (name, url, slug)
+       VALUES ($1, $2, $3)
        RETURNING *`,
-      [name, url]
+      [name, url, slug]
     );
     return result.rows[0];
     }
@@ -16,9 +17,14 @@ class CategoryModel {
     return result.rows[0];
     }
 
-    static async findById({id}){
+    static async findById(id){
     const result = await pool.query('SELECT * FROM CATEGORY WHERE ID = $1',[id]);
-    return result.rows;
+    return result.rows[0];
+    }
+
+    static async findBySlug(slug){
+    const result = await pool.query('SELECT * FROM CATEGORY WHERE SLUG = $1',[slug]);
+    return result.rows[0];
     }
 
     static async getAll(){

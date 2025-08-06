@@ -27,6 +27,7 @@ class ArticleService {
   }
 
   static async crawlNewArticles() {
+    const crawlNewCategories = await CrawlService.crawlCategory()
     const categories = await CategoryModel.getAll();
     const allResults = [];
 
@@ -72,17 +73,24 @@ class ArticleService {
 
   static async getAllArticles(){
         const articles = await ArticleModel.getAllArticles()
-        return articles;
+        if (articles.length === 0){
+          return {success:false, articles: articles}
+        }
+        return {success:true, articles: articles}
+        
   }
 
   static async getArticlesByCategory({categoryId}){
         const articles = await ArticleModel.getArticlesByCategory({categoryId})
-        return articles;
+        if (articles.length === 0){
+          return {success:false, articles: articles}
+        }
+        return {success:true, articles: articles}
   }
 
     static async getArticleById({id}){
         const article = await ArticleModel.findById({id})
-        if (article.length === 0)
+        if (!article || Object.keys(article).length === 0)
           return { success: false, message: "Wrong Id"}
         return { success: true, article: article};
   }

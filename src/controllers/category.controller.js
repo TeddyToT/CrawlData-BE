@@ -14,9 +14,35 @@ class CategoryController {
 
     getAllCategories = async (req, res, next) => {
         try {
-            const categories = await CategoryService.getAllCategories()
-            return res.status(201).json({success: true, categories:categories})
+            const result = await CategoryService.getAllCategories()
+            return res.status(201).json({success: result.success, categories:result.categories})
         } catch (error) {
+            next(error)
+        }
+    }
+
+    getCategoryBySlug = async (req, res, next) => {
+        try {
+            const result = await CategoryService.getCategoryBySlug(req.query)
+            return res.status(200).json({
+                success: result.success,
+                message: result?.message,
+                category: result.category
+            })
+        }catch (error) {
+            next(error)
+        }
+    }
+
+    getCategoryById = async (req, res, next) => {
+        try {
+            const result = await CategoryService.getCategoryById(req.query)
+            return res.status(200).json({
+                success: result.success,
+                message: result?.message,
+                category: result.category
+            })
+        }catch (error) {
             next(error)
         }
     }

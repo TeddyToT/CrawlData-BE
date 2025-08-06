@@ -25,10 +25,10 @@ class ArticleController {
 
     getAllArticles = async (req, res, next) => {
         try {
-            const articles = await ArticleService.getAllArticles()
+            const result = await ArticleService.getAllArticles()
             return res.status(200).json({
-                success: true,
-                articles: articles
+                success: result.success,
+                articles: result.articles
             })
         }catch (error) {
             next(error)
@@ -37,10 +37,10 @@ class ArticleController {
 
      getArticlesByCategory = async (req, res, next) => {
         try {
-            const articles = await ArticleService.getArticlesByCategory(req.query)
+            const result = await ArticleService.getArticlesByCategory(req.query)
             return res.status(200).json({
-                success: true,
-                articles: articles
+                success: result.success,
+                articles: result.articles
             })
         }catch (error) {
             next(error)

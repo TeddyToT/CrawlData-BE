@@ -1,0 +1,38 @@
+
+services:
+  db:
+    image: postgres:17
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: abc123
+      POSTGRES_DB: crawling-data
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./initSQL.sql:/docker-entrypoint-initdb.d/initSQL.sql
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d crawling-data"]
+      interval: 20s
+      timeout: 12s
+      retries: 10
+
+
+  express-app:
+    build: .
+    container_name: my_express_app
+    restart: always
+    env_file:
+      - .env.docker
+    ports:
+      - "8001:8001"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - /app/node_modules
+volumes:
+  pg_data:

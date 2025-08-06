@@ -6,7 +6,19 @@ const writeLog = require("../utils/logger");
 const maxLoadMore = parseInt(process.env.MAX_LOAD_MORE || "1", 10);
 class CrawlService {
   static crawlArticle = async ({ newURL }) => {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+  headless: true,
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-gpu',
+    '--disable-features=IsolateOrigins,site-per-process',
+    '--disable-web-security',
+    '--ignore-certificate-errors'
+  ],
+});
+
     const page = await browser.newPage();
     await page.goto(newURL, { waitUntil: "domcontentloaded" });
 
@@ -78,7 +90,19 @@ class CrawlService {
   };
 
   static crawlCategory = async () => {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+  headless: true,
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-gpu',
+    '--disable-features=IsolateOrigins,site-per-process',
+    '--disable-web-security',
+    '--ignore-certificate-errors'
+  ],
+});
+
     const page = await browser.newPage();
 
     await page.goto(BASE_URL, { waitUntil: "domcontentloaded" });
@@ -126,6 +150,15 @@ class CrawlService {
   static crawlNewArticlesByCategory = async ({ id, url }) => {
     const browser = await puppeteer.launch({
       headless: true,
+      args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-gpu',
+    '--disable-features=IsolateOrigins,site-per-process',
+    '--disable-web-security',
+    '--ignore-certificate-errors'
+  ],
       ignoreHTTPSErrors: true,
     });
 

@@ -6,6 +6,8 @@ const router = express.Router()
 
 router.get('/crawl', CategoryController.crawlNewCategories)
 router.get('/', CategoryController.getAllCategories)
+router.get('/slug', CategoryController.getCategoryBySlug)
+router.get('/id', CategoryController.getCategoryById)
 
 module.exports = router
 
@@ -47,5 +49,44 @@ module.exports = router
  *                   type: array
  *                   items:
  *                     $ref: '#/components/schemas/Category'
+ */
+
+/**
+ * @swagger
+ * /api/category/slug:
+ *   get:
+ *     summary: Get category by slug
+ *     tags: [Category]
+ *     parameters:
+ *       - in: query
+ *         name: slug
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Slug of the category
+ *     responses:
+ *       200:
+ *         description: category with the specified slug
+ *       404:
+ *         description: category not found
+ */
+/**
+ * @swagger
+ * /api/category/id:
+ *   get:
+ *     summary: Get category by id
+ *     tags: [Category]
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the category
+ *     responses:
+ *       200:
+ *         description: category with the specified id
+ *       404:
+ *         description: category not found
  */
 
